@@ -20,6 +20,8 @@ var currentRound = 0;
 var startNextRound = function () {
 	currentRound ++;
 	
+	console.log('Round', currentRound);
+	
 	// set players emojis
 	pc.currentEmoji = getRandomEmoji();
 	user.currentEmoji = getRandomEmoji();
@@ -40,6 +42,12 @@ var snap = function (pcCalledSnap) {
 	// if snap is true then the user/pc get's +1 to roundsWon
 	// if user gets it wrong then pc gets +1 to roundsWon
 	// notify of what just happened – console/ui/html
+	// 
+	
+	// check for undefined emojis
+	if (pc.currentEmoji == undefined || user.currentEmoji == undefined) {
+		return false;
+	}
 	
 	var snap = pc.currentEmoji == user.currentEmoji;
 	
@@ -68,6 +76,19 @@ var snap = function (pcCalledSnap) {
 			pc.roundsWon ++;
 			console.log('user lost the round')
 		}
+	}
+	
+	console.log('User: ', user.roundsWon, 'PC: ', pc.roundsWon);
+	
+	pc.currentEmoji = undefined;
+	user.currentEmoji = undefined;
+	
+	if (user.roundsWon == 3) {
+		console.log('user won the game!!')
+		console.log('game over')
+	} else if (pc.roundsWon == 4) {
+		console.log('pc won the game!!')
+		console.log('game over')
 	}
 	
 	console.groupEnd();
