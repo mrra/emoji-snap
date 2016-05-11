@@ -8,6 +8,21 @@ var countdownSpeed = 500;
 var noticeShowTime = 1200;
 var noticeDelay = 1000;
 
+var emojis = ['😎','🐰','🔫','🃏','😜','💩'];
+var startingEmoji = '❔';
+var joker = '🃏';
+
+// notices
+var userSnapNotice = '👱⚡️';
+var userRoundWinNotice = '👱 +1 🎉';
+var userRoundLostNotice = '🤖 +1 😫';
+var userWinNotice = '👱🏆 = 👊👑😃🎉';
+
+var pcSnapNotice = '🤖⚡️';
+var pcRoundWinNotice = '🤖 +1 😦';
+var pcRoundLostNotice = '👱 +1';
+var pcWinNotice = '🤖🏆 = 😖😫';
+
 // timers
 var newRoundTimer = undefined;
 var pcCallSnapTimer = undefined;
@@ -24,11 +39,6 @@ var pc = {
 	roundsWon: 0,
 	currentEmoji: undefined
 };
-
-// define our emojis
-var emojis = ['😎','🐰','🔫','🃏','😜','💩'];
-var startingEmoji = '❔';
-var joker = '🃏';
 
 // define state
 var currentRound = 0;
@@ -204,7 +214,7 @@ var snap = function (pcCalledSnap) {
 	
 	var isMatched = isAMatch();
 	
-	createNewNotice('SNAP by '+(pcCalledSnap ? '🤖' : '👱'));
+	createNewNotice((pcCalledSnap ? pcSnapNotice : userSnapNotice));
 	console.group('Snap Called by: '+ (pcCalledSnap ? 'PC' : 'User'));
 	
 	// pc called
@@ -213,12 +223,12 @@ var snap = function (pcCalledSnap) {
 			pc.roundsWon ++;
 			pcScoreNode.innerText = pc.roundsWon;
 			console.log('pc won the round')
-			createNewNotice('🤖 won the round!', false, noticeDelay);
+			createNewNotice(pcRoundWinNotice, false, noticeDelay);
 		} else {
 			user.roundsWon ++;
 			userScoreNode.innerText = user.roundsWon;
 			console.log('pc lost the round')
-			createNewNotice('🤖 lost the round!', false, noticeDelay);
+			createNewNotice(pcRoundLostNotice, false, noticeDelay);
 		}
 	
 	// user called
@@ -227,12 +237,12 @@ var snap = function (pcCalledSnap) {
 			user.roundsWon ++;
 			userScoreNode.innerText = user.roundsWon;
 			console.log('user won the round')
-			createNewNotice('👱 won the round!', false, noticeDelay);
+			createNewNotice(userRoundWinNotice, false, noticeDelay);
 		} else {
 			pc.roundsWon ++;
 			pcScoreNode.innerText = pc.roundsWon;
 			console.log('user lost the round')
-			createNewNotice('👱 lost the round!', false, noticeDelay);
+			createNewNotice(userRoundLostNotice, false, noticeDelay);
 		}
 	}
 	
@@ -253,12 +263,12 @@ var snap = function (pcCalledSnap) {
 	if (user.roundsWon == roundsToWin) {
 		console.log('user won the game!!')
 		console.log('game over')
-		createNewNotice('👱 won the game!', true, noticeDelay*2);
+		createNewNotice(userWinNotice, true, noticeDelay*2);
 		whenWon();
 	} else if (pc.roundsWon == roundsToWin) {
 		console.log('pc won the game!!')
 		console.log('game over')
-		createNewNotice('🤖 won the game!', true, noticeDelay*2);
+		createNewNotice(pcWinNotice, true, noticeDelay*2);
 		whenWon();
 	} else {
 		newRoundTimer = setTimeout(countdown, newRoundStartsInFromSnap);
