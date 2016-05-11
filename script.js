@@ -47,6 +47,8 @@ var currentRoundNode = document.getElementById('current-round');
 var noticeNode = document.getElementById('notice');
 var roundsToWinNode = document.getElementById('rounds-to-win');
 var jokerNode = document.getElementById('joker');
+var userScoreNode = document.getElementById('user-score');
+var pcScoreNode = document.getElementById('pc-score');
 
 // events listeners
 startBtn.addEventListener('click', function () {
@@ -73,6 +75,8 @@ var init = function () {
 	
 	currentRoundNode.innerText = currentRound;
 	noticeNode.innerText = '';
+	userScoreNode.innerText = 0;
+	pcScoreNode.innerText = 0;
 }
 
 init();
@@ -207,10 +211,12 @@ var snap = function (pcCalledSnap) {
 	if (pcCalledSnap) {
 		if (isMatched) {
 			pc.roundsWon ++;
+			pcScoreNode.innerText = pc.roundsWon;
 			console.log('pc won the round')
 			createNewNotice('🤖 won the round!', false, noticeDelay);
 		} else {
 			user.roundsWon ++;
+			userScoreNode.innerText = user.roundsWon;
 			console.log('pc lost the round')
 			createNewNotice('🤖 lost the round!', false, noticeDelay);
 		}
@@ -219,10 +225,12 @@ var snap = function (pcCalledSnap) {
 	} else {
 		if (isMatched) {
 			user.roundsWon ++;
+			userScoreNode.innerText = user.roundsWon;
 			console.log('user won the round')
 			createNewNotice('👱 won the round!', false, noticeDelay);
 		} else {
 			pc.roundsWon ++;
+			pcScoreNode.innerText = pc.roundsWon;
 			console.log('user lost the round')
 			createNewNotice('👱 lost the round!', false, noticeDelay);
 		}
