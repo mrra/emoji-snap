@@ -1,5 +1,5 @@
 // settings
-var roundsToWin = 1;
+var roundsToWin = 3;
 var countdownFrom = 3;
 var newRoundStartsIn = 4000;
 var newRoundStartsInFromSnap = 4000;
