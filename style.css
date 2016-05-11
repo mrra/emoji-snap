@@ -125,15 +125,28 @@ button:hover, button:active{
 	box-shadow: 0 0 10px rgba(0,0,0,.1);
 }
 
-/*
+.instructions{
+	position: fixed;
+	top: 0; bottom: 0;
+	left: 0; right: 0;
+	background-color: rgba(0,0,0,.95);
+	color: white;
+	text-align: center;
+	transition: opacity 500ms;
+}
 
-<!-- abs positioned elements -->
+.instructions.hide{
+	opacity: 0;
+}
 
-<!-- instructions -->
-<div class="instructions"></div>
 
-<button>Start</button>
-<button>Snap</button>
-<!-- <button>Reset</button> -->
 
- */
+
+
+
+
+
+
+
+
+
