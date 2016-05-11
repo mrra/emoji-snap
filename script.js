@@ -1,3 +1,16 @@
+// settings
+var roundsToWin = 3;
+var countdownFrom = 5;
+var newRoundStartsIn = 6000;
+var newRoundStartsInFromSnap = 4000;
+var pcCallsIn = 2000;
+var countdownSpeed = 500;
+
+// timers
+var newRoundTimer = undefined;
+var pcCallSnapTimer = undefined;
+var countdownTimer = undefined;
+
 // define players
 var user = {
 	name: 'user',
@@ -16,6 +29,28 @@ var joker = '🃏';
 
 // define state
 var currentRound = 0;
+var count = countdownFrom;
+
+var start = function () {
+	countdown();
+}
+
+var countdown = function () {
+	console.clear();
+	if (count != 0) {
+		console.log('count', count);
+	}
+	
+	if (count <= 0) {
+		count = countdownFrom;
+		startNextRound();
+		return;
+	} else {
+		countdownTimer = setTimeout(countdown, countdownSpeed);
+	}
+	
+	count --;
+};
 
 var startNextRound = function () {
 	currentRound ++;
@@ -26,8 +61,24 @@ var startNextRound = function () {
 	pc.currentEmoji = getRandomEmoji();
 	user.currentEmoji = getRandomEmoji();
 	
+	// pc calls snap
+	if (isAMatch()) {
+		pcCallSnapTimer = setTimeout(function () {
+			snap(true);
+		}, pcCallsIn);
+	}
+	
+	newRoundTimer = setTimeout(countdown, newRoundStartsIn);
+	
 	console.log('emojis', pc.currentEmoji, 'vs', user.currentEmoji)
 };
+
+var isAMatch = function () {
+	if (pc.currentEmoji == joker || user.currentEmoji == joker) {
+		return true;
+	}
+	return pc.currentEmoji == user.currentEmoji;
+}
 
 var getRandomEmoji = function () {
 	var randomNumber = Math.round(Math.random() * (emojis.length-1));
@@ -49,11 +100,9 @@ var snap = function (pcCalledSnap) {
 		return false;
 	}
 	
-	var snap = pc.currentEmoji == user.currentEmoji;
+	clearTimeout(newRoundTimer);
 	
-	if (pc.currentEmoji == joker || user.currentEmoji == joker) {
-		snap = true;
-	}
+	var snap = isAMatch();
 	
 	console.group('Snap Called by: '+ (pcCalledSnap ? 'PC' : 'User'));
 	
@@ -83,12 +132,14 @@ var snap = function (pcCalledSnap) {
 	pc.currentEmoji = undefined;
 	user.currentEmoji = undefined;
 	
-	if (user.roundsWon == 3) {
+	if (user.roundsWon == roundsToWin) {
 		console.log('user won the game!!')
 		console.log('game over')
-	} else if (pc.roundsWon == 4) {
+	} else if (pc.roundsWon == roundsToWin) {
 		console.log('pc won the game!!')
 		console.log('game over')
+	} else {
+		newRoundTimer = setTimeout(countdown, newRoundStartsInFromSnap);
 	}
 	
 	console.groupEnd();
