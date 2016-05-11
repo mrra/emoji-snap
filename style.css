@@ -147,6 +147,10 @@ button.hide{
 	opacity: 0;
 }
 
+button.none{
+	display: none;
+}
+
 .instructions{
 	position: fixed;
 	top: 0; bottom: 0;

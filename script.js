@@ -1,5 +1,5 @@
 // settings
-var roundsToWin = 3;
+var roundsToWin = 1;
 var countdownFrom = 3;
 var newRoundStartsIn = 4000;
 var newRoundStartsInFromSnap = 4000;
@@ -33,12 +33,14 @@ var joker = '🃏';
 // define state
 var currentRound = 0;
 var count = countdownFrom;
+var gameStarted = false;
 
 // HTML stuff
 var instructions = document.getElementById('instructions');
 var countdownNode = document.getElementById('countdown');
 var startBtn = document.getElementById('start-btn');
 var snapBtn = document.getElementById('snap-btn');
+var resetBtn = document.getElementById('reset-btn');
 var userEmojiNode = document.getElementById('user-emoji');
 var pcEmojiNode = document.getElementById('pc-emoji');
 var currentRoundNode = document.getElementById('current-round');
@@ -55,26 +57,49 @@ snapBtn.addEventListener('click', function () {
 	snap();
 });
 
+resetBtn.addEventListener('click', function () {
+	init();
+	start();
+});
 
-// do some initial stuff
-userEmojiNode.innerText = startingEmoji;
-pcEmojiNode.innerText = startingEmoji;
-roundsToWinNode.innerText = roundsToWin;
-jokerNode.innerText = joker;
+var init = function () {
+	pc.roundsWon = 0;
+	user.roundsWon = 0;
+	userEmojiNode.innerText = startingEmoji;
+	pcEmojiNode.innerText = startingEmoji;
+	roundsToWinNode.innerText = roundsToWin;
+	jokerNode.innerText = joker;
+	currentRound = 0;
+	
+	currentRoundNode.innerText = currentRound;
+	noticeNode.innerText = '';
+}
 
+init();
 
 var start = function () {
 	countdown();
 	
 	// change the interface
 	startBtn.classList.add('hide');
+	resetBtn.classList.add('hide');
 	snapBtn.classList.remove('hide');
+	snapBtn.classList.remove('none');
 	instructions.classList.add('hide');
+	
+	if (!gameStarted) {
+		gameStarted = true;
+		setTimeout(function () {
+			instructions.parentNode.removeChild(instructions);
+			gameStarted = true;
+		}, 510)
+		setTimeout(function () {
+			startBtn.parentNode.removeChild(startBtn);
+		}, 510)
+	}
+	
 	setTimeout(function () {
-		instructions.parentNode.removeChild(instructions);
-	}, 510)
-	setTimeout(function () {
-		startBtn.parentNode.removeChild(startBtn);
+		resetBtn.classList.add('none');
 	}, 510)
 }
 
@@ -208,14 +233,25 @@ var snap = function (pcCalledSnap) {
 	pc.currentEmoji = undefined;
 	user.currentEmoji = undefined;
 	
+	var whenWon = function () {
+		resetBtn.classList.remove('none');
+		resetBtn.classList.remove('hide');
+		snapBtn.classList.add('hide');
+		setTimeout(function() {
+			snapBtn.classList.add('none');
+		}, 250);
+	}
+	
 	if (user.roundsWon == roundsToWin) {
 		console.log('user won the game!!')
 		console.log('game over')
 		createNewNotice('👱 won the game!', true, noticeDelay*2);
+		whenWon();
 	} else if (pc.roundsWon == roundsToWin) {
 		console.log('pc won the game!!')
 		console.log('game over')
 		createNewNotice('🤖 won the game!', true, noticeDelay*2);
+		whenWon();
 	} else {
 		newRoundTimer = setTimeout(countdown, newRoundStartsInFromSnap);
 	}
