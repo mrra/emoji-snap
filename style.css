@@ -26,12 +26,8 @@ body{
 }
 
 h3{
-	font-size: 40px;
-	margin: -60px 10px 10px;
-}
-
-h3 span{
 	font-size: 60px;
+	margin: -60px 10px 10px;
 }
 
 .card{
@@ -155,6 +151,7 @@ button.none{
 	position: fixed;
 	top: 0; bottom: 0;
 	left: 0; right: 0;
+	font-size: 20px;
 	background-color: rgba(0,0,0,.95);
 	color: white;
 	text-align: center;
@@ -170,7 +167,7 @@ button.none{
 }
 
 #joker{
-	font-size: 40px;
+	font-size: 128px;
 }
 
 .instructions.hide{
