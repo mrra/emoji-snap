@@ -12,35 +12,35 @@
 		<div class="player user">
 			<h3><span>👱</span> User</h3>
 			<div class="card">
-				<div class="emoji">💩</div>
+				<div id="user-emoji" class="emoji"></div>
 			</div>
 		</div>
 		<div class="player pc">
 			<h3><span>🤖</span> PC</h3>
 			<div class="card">
-				<div class="emoji">🃏</div>
+				<div id="pc-emoji" class="emoji"></div>
 			</div>
 		</div>
 		
 		<!-- abs positioned elements -->
-		<div class="current-round">Round 3</div>
+		<div class="current-round">Round <span id="current-round">0</span></div>
 		
-		<div class="countdown">4</div>
+		<div id="countdown" class="countdown hide">0</div>
 		
-		<div class="notice">
-			<span>You won the round!</span>
-		</div>
+		<div id="notice" class="notice hide"></div>
 		
 		<!-- instructions -->
 		<div id="instructions" class="instructions">
 			<h2>Hi there. Welcome to Emoji Snap!</h2>
-			<p>Here are the instructions!<br>
-				Press Start to start the game.<br>
+			<h3>Here are the instructions!</h3>
+			<p>Press Start to start the game.<br>
 				Press snap when there is a match, or when there is a joker!</p>
+			<p>You need to win <span id="rounds-to-win"></span> rounds</p>
+			<p>The Joker is <span id="joker"></span></p>
 		</div>
 		
-		<button>Snap</button>
-		<button onclick="start();">Start</button>
+		<button id="snap-btn" class="hide">Snap</button>
+		<button id="start-btn">Start</button>
 		<!-- <button>Reset</button> -->
 		
 	</div>
