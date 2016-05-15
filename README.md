@@ -2,7 +2,7 @@
 Surely the best game ever – snap with emojis!!!
 
 ## What is this thing?
-It's Emoji Snap – a simple JavaScript game. This is the final codebase for the game we develop through a series of videos.
+It's Emoji Snap – a fun and simple JavaScript game we develop through a series of videos.
 
 ## Who's it For?
 JavaScript students looking for a fun project to tackle! You’ll need some prior HTML, CSS and JavaScript experience. I have classes on all of those:
