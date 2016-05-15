@@ -19,4 +19,4 @@ JavaScript students looking for a fun project to tackle! You’ll need some prio
 - Lot’s of tips and tricks
 
 ## I Want In!
-Well, of course you do. [Enrol in the class!](https://www.skillshare.com/classes/technology/class/1636297597)
+Well, of course you do. [Enrol in the class!](http://skl.sh/1Tihnr0)
